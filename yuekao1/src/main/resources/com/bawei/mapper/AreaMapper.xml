@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bawei.mapper.CourseDao">
+
+<select id="findSheng" resultType="com.bawei.bean.Area">
+select * from area where sid=0;
+</select>
+
+<select id="findShi" resultType="com.bawei.bean.Area" parameterType="string">
+select * from area where sid=#{shi};
+</select>
+
+<select id="findXian" resultType="com.bawei.bean.Area" parameterType="string">
+select * from area where sid=#{xian};
+</select>
+
+<select id="finds" parameterType="int" resultType="com.bawei.bean.Course">
+select * from area where aid=#{0}
+</select>
+
+</mapper>

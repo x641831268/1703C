@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bawei.mapper.UserDao">
+
+<insert id="zhuce" parameterType="com.bawei.bean.User">
+insert into user (uname,upwd,utype) values (#{uname},#{upwd},#{utype})
+</insert>
+
+<select id="login" resultType="com.bawei.bean.User" parameterType="string">
+select * from user where uname=#{uname}
+</select>
+
+</mapper>

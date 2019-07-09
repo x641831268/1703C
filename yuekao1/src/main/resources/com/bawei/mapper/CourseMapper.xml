@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bawei.mapper.CourseDao">
+
+<resultMap type="com.bawei.bean.Course" id="Cmap">
+<association property="asheng" javaType="com.bawei.bean.Area" column="sheng" select="com.bawei.mapper.CourseDao.finds"></association>
+<association property="ashi" javaType="com.bawei.bean.Area" column="shi" select="com.bawei.mapper.CourseDao.finds"></association>
+<association property="axian" javaType="com.bawei.bean.Area" column="xian" select="com.bawei.mapper.CourseDao.finds"></association>
+</resultMap>
+
+<insert id="add" parameterType="com.bawei.bean.Course">
+insert into course (cname,cdesc,sheng,shi,xian,startDate,endDate,label,images) values 
+(#{cname},#{cdesc},#{sheng},#{shi},#{xian},#{startDate},#{endDate},#{label},#{images})
+</insert>
+
+<select id="findAll" resultMap="Cmap" parameterType="map" >
+SELECT c.cid,c.cname,c.label,u.uname,u.utype,SUBSTR(c.cdesc FROM 1 FOR 12) cdesc,c.startDate,c.endDate,c.sheng,c.shi,c.xian from course c,u_c uc,user u where c.cid=uc.cid and u.uid=uc.uid
+<if test="_parameter.cname!=null and _parameter.cname!='' ">
+and c.cname like '%${_parameter.cname}%'
+</if>
+<if test="_parameter.label!=null and _parameter.label!='' ">
+and c.label like '%${_parameter.label}%'
+</if>
+<if test="_parameter.sheng!=null and _parameter.sheng!='' ">
+and c.sheng=${_parameter.sheng}
+</if>
+<if test="_parameter.shi!=null and _parameter.sheng!='' ">
+and c.shi=${_parameter.shi}
+</if>
+<if test="_parameter.xian!=null and _parameter.sheng!='' ">
+and c.xian=${_parameter.xian}
+</if>
+</select>
+
+<select id="findbyid" parameterType="string" resultType="com.bawei.bean.Course">
+select * from course where cid=#{cid}
+</select>
+
+<delete id="del" parameterType="string">
+delete from course where cid in (#{ids})
+</delete>
+
+<insert id="addCourse" parameterType="map" statementType="CALLABLE">
+{
+  call addCourse(#{uid,mode=IN},#{cid,mode=IN},#{result,mode=OUT,jdbcType=INTEGER})
+}
+</insert>
+
+</mapper>
