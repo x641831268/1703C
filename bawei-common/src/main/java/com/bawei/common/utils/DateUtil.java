@@ -13,7 +13,7 @@ public class DateUtil {
 
 	public static String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
-	// 将日期字符串"yyyyMMdd"转化为wv成日期对象Date
+	// 将日期字符串"yyyyMMdd"转化为成日期对象Date
 	public static Date strToDate(String time) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		Date date;
